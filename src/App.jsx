@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { GlobalStyle } from './globalStyles';
 import HeroSection from './components/HeroSection';
 import BenefitsSection from './components/BenefitsSection';

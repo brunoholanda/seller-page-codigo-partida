@@ -58,7 +58,7 @@ export default function MentorSection() {
   return (
     <Section>
       <Title>Quem vai ser seu mentor?</Title>
-      <Img src={suaFoto} alt="Bruno - Mentor do curso" />
+      <Img src={suaFoto} alt="Bruno - Mentor do curso" loading='lazy' />
       <Paragraph>
         Bruno Holanda aqui. Produzo conteúdo sobre tecnologia e ensino desde 2013.
         <br /><br />
