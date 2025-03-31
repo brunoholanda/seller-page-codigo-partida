@@ -50,11 +50,15 @@ const CTAButton = styled.button`
 `;
 
 export default function HeroSection() {
+  const whatsappLink = `https://wa.me/5583998150712?text=${encodeURIComponent("quero aprender programação do zero")}`;
+
   return (
     <Hero>
       <Title>Código de Partida</Title>
       <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
-      <CTAButton>Quero começar agora</CTAButton>
+      <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
+        Quero começar agora
+      </CTAButton>
     </Hero>
   );
 }

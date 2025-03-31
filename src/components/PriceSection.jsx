@@ -35,12 +35,16 @@ const CTAButton = styled.button`
 `;
 
 export default function PriceSection() {
+  const whatsappLink = `https://wa.me/5583998150712?text=${encodeURIComponent("quero aprender programação do zero")}`;
+
   return (
     <Section>
       <Title>Comece agora o Código de Partida</Title>
       <Price>De R$897 por R$597 à vista</Price>
       <Installments>ou 12x de R$49,75</Installments>
-      <CTAButton>Quero me inscrever agora</CTAButton>
+      <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
+        Quero começar agora
+      </CTAButton>
     </Section>
   );
 }

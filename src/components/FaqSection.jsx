@@ -43,14 +43,14 @@ function Question({ title, children }) {
     if (!el) return;
 
     if (isOpen) {
-      // Fecha
+      // Fechar
       setHeight(el.scrollHeight);
       requestAnimationFrame(() => {
         setHeight(0);
         setIsOpen(false);
       });
     } else {
-      // Abre
+      // Abrir: Ajuste para garantir que o scrollHeight seja atualizado
       setHeight(el.scrollHeight);
       setIsOpen(true);
     }
@@ -63,7 +63,7 @@ function Question({ title, children }) {
         <span>{isOpen ? '−' : '+'}</span>
       </Summary>
       <Answer style={{ height: isOpen ? `${height}px` : '0px' }}>
-        <div ref={contentRef}>
+        <div ref={contentRef} style={{ overflow: 'hidden' }}>
           <p style={{ marginTop: 10, fontSize: '0.85rem' }}>{children}</p>
         </div>
       </Answer>
