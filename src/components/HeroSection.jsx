@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import bgImg from '../assets/hero.webp'; // use a imagem que você quiser
 
 const Hero = styled.section`
+  min-height: 400px;
   background-image: url(${bgImg});
   background-size: cover;
   background-position: center;
@@ -13,6 +14,7 @@ const Hero = styled.section`
 
   @media (min-width: 768px) {
     padding: 120px 60px;
+    min-height: 600px;
   }
 `;
 
