@@ -6,6 +6,7 @@ const Section = styled.section`
   color: white;
   padding: 50px 20px;
   text-align: center;
+  color: var(--texto-cinza);
 `;
 
 const Title = styled.h2`

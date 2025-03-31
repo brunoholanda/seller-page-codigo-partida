@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const Section = styled.section`
   padding: 40px 20px;
   background: #fff;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -13,7 +15,7 @@ const Title = styled.h2`
 `;
 
 const Testimonial = styled.div`
-  background-color: #f4f4f4;
+  background-color: ${({ theme }) => theme.backgrounds};
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;

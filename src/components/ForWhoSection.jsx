@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`

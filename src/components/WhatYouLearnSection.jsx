@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: #f9f9f9;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -21,10 +22,10 @@ const List = styled.ul`
 `;
 
 const Item = styled.li`
-  background: white;
-  padding: 16px;
+  background-color: ${({ theme }) => theme.backgrounds};
+    padding: 16px;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   font-size: 1rem;
 `;
 

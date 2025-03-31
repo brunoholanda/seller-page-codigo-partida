@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -18,11 +19,11 @@ const BonusList = styled.ul`
 `;
 
 const BonusItem = styled.li`
-  background: #f9f9f9;
+  background-color: ${({ theme }) => theme.backgrounds};
   margin-bottom: 16px;
   padding: 16px;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 `;
 
 export default function BonusesSection() {

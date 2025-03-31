@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: #f9f9f9;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -31,11 +32,11 @@ const BenefitsWrapper = styled.div`
 `;
 
 const Benefit = styled.div`
-  background: white;
+  background-color: ${({ theme }) => theme.backgrounds};
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   flex: 1;
 `;
 

@@ -4,8 +4,9 @@ import suaFoto from '../assets/bruno.webp';
 
 const Section = styled.section`
   padding: 60px 20px;
-  background-color: #fefefe;
   text-align: center;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 
   @media(min-width: 768px) {
     padding: 80px;
@@ -22,9 +23,10 @@ const Title = styled.h2`
 `;
 
 const Img = styled.img`
-  width: 280px;
-  height: 365px;
+  width: 320px;
+  height: 410px;
   object-fit: cover;
+  opacity: 80%;
   border-radius: 12px;
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -35,7 +37,7 @@ const Paragraph = styled.p`
   line-height: 1.6;
   max-width: 800px;
   margin: 0 auto;
-  color: #333;
+  color: ${({ theme }) => theme.text};
 
   @media(min-width: 768px) {
     font-size: 1.1rem;

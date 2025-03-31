@@ -9,6 +9,7 @@ const Hero = styled.section`
   padding: 80px 20px;
   color: white;
   text-align: center;
+  background-color: #000;
 
   @media (min-width: 768px) {
     padding: 120px 60px;
@@ -16,7 +17,7 @@ const Hero = styled.section`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
 
   @media (min-width: 768px) {
@@ -25,7 +26,7 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-bottom: 20px;
 
   @media (min-width: 768px) {
@@ -40,6 +41,7 @@ const CTAButton = styled.button`
   border: none;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 20px;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background: #fff;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -12,50 +13,82 @@ const Title = styled.h2`
   margin-bottom: 30px;
 `;
 
-const Question = styled.details`
+const QuestionWrapper = styled.div`
   margin-bottom: 20px;
-  background: #f5f5f5;
+  background-color: ${({ theme }) => theme.backgroundt};
   padding: 16px;
   border-radius: 6px;
-
-  summary {
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  p {
-    margin-top: 10px;
-    font-size: 0.95rem;
-  }
 `;
+
+const Summary = styled.div`
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Answer = styled.div`
+  overflow: hidden;
+  transition: height 0.3s ease;
+`;
+
+function Question({ title, children }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [height, setHeight] = useState(0);
+  const contentRef = useRef(null);
+
+  const toggle = () => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    if (isOpen) {
+      // Fecha
+      setHeight(el.scrollHeight);
+      requestAnimationFrame(() => {
+        setHeight(0);
+        setIsOpen(false);
+      });
+    } else {
+      // Abre
+      setHeight(el.scrollHeight);
+      setIsOpen(true);
+    }
+  };
+
+  return (
+    <QuestionWrapper>
+      <Summary onClick={toggle}>
+        {title}
+        <span>{isOpen ? '−' : '+'}</span>
+      </Summary>
+      <Answer style={{ height: isOpen ? `${height}px` : '0px' }}>
+        <div ref={contentRef}>
+          <p style={{ marginTop: 10, fontSize: '0.85rem' }}>{children}</p>
+        </div>
+      </Answer>
+    </QuestionWrapper>
+  );
+}
 
 export default function FaqSection() {
   return (
     <Section>
       <Title>Dúvidas Frequentes</Title>
-
-      <Question>
-        <summary>Preciso saber algo antes de começar?</summary>
-        <p>Não! O curso foi feito para quem está começando do zero.</p>
+      <Question title="Preciso saber algo antes de começar?">
+        Não! O curso foi feito para quem está começando do zero.
       </Question>
-
-      <Question>
-        <summary>O curso tem certificado?</summary>
-        <p>Sim! Você recebe um certificado ao concluir todas as aulas.</p>
+      <Question title="O curso tem certificado?">
+        Sim! Você recebe um certificado ao concluir todas as aulas.
       </Question>
-
-      <Question>
-        <summary>Posso assistir pelo celular?</summary>
-        <p>Sim! Porém você precisa praticar e para isso é necessario um computador.</p>
+      <Question title="Posso assistir pelo celular?">
+        Sim! Porém você precisa praticar e para isso é necessário um computador.
       </Question>
-      <Question>
-        <summary>Preciso de um computador potente?</summary>
-        <p>Não, você pode usar qualquer computador, com qualquer configuração que vai ser possivel assistir as aulas e praticar o aprendizado.</p>
+      <Question title="Preciso de um computador potente?">
+        Não, você pode usar qualquer computador, com qualquer configuração que vai ser possível assistir às aulas e praticar o aprendizado.
       </Question>
-
-      <Question>
-        <summary>Como funciona a comunidade?</summary>
-        <p>Você receberá um link para o Discord onde poderá tirar dúvidas e interagir com outros alunos.</p>
+      <Question title="Como funciona a comunidade?">
+        Você receberá um link para o Discord onde poderá tirar dúvidas e interagir com outros alunos.
       </Question>
     </Section>
   );
