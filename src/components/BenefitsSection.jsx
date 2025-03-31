@@ -22,6 +22,12 @@ const BenefitsWrapper = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
   }
+
+  @media(min-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 `;
 
 const Benefit = styled.div`
@@ -49,7 +55,7 @@ export default function BenefitsSection() {
       <BenefitsWrapper>
         <Benefit>
           <Emoji>🧠</Emoji>
-          <BenefitText>+100 aulas práticas, direto ao ponto</BenefitText>
+          <BenefitText>+200 aulas práticas, direto ao ponto</BenefitText>
         </Benefit>
         <Benefit>
           <Emoji>⚙️</Emoji>

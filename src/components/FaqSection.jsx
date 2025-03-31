@@ -46,7 +46,11 @@ export default function FaqSection() {
 
       <Question>
         <summary>Posso assistir pelo celular?</summary>
-        <p>Sim! Todo o conteúdo é responsivo e acessível por qualquer dispositivo.</p>
+        <p>Sim! Porém você precisa praticar e para isso é necessario um computador.</p>
+      </Question>
+      <Question>
+        <summary>Preciso de um computador potente?</summary>
+        <p>Não, você pode usar qualquer computador, com qualquer configuração que vai ser possivel assistir as aulas e praticar o aprendizado.</p>
       </Question>
 
       <Question>

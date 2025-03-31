@@ -37,7 +37,10 @@ export default function WhatYouLearnSection() {
         <Item>Lógica de programação aplicada</Item>
         <Item>JavaScript moderno com projetos</Item>
         <Item>React com componentes reais</Item>
+        <Item>Como programar usando inteligencia artificial</Item>
         <Item>Como criar portfólio, LinkedIn e currículo de dev</Item>
+        <Item>Como otimizar seu linkedin para receber propostas</Item>
+        <Item>Como conseguir trabalhos freelancer e faturar</Item>
         <Item>Desafios e projetos para treinar tudo isso</Item>
       </List>
     </Section>

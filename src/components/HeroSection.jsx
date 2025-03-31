@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import bgImg from '../assets/hero-bg.png'; // use a imagem que você quiser
+import bgImg from '../assets/hero.webp'; // use a imagem que você quiser
 
 const Hero = styled.section`
   background-image: url(${bgImg});
@@ -9,16 +9,28 @@ const Hero = styled.section`
   padding: 80px 20px;
   color: white;
   text-align: center;
+
+  @media (min-width: 768px) {
+    padding: 120px 60px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 2rem;
   margin-bottom: 10px;
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const Subtitle = styled.p`
   font-size: 1rem;
   margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const CTAButton = styled.button`
@@ -28,6 +40,11 @@ const CTAButton = styled.button`
   border: none;
   border-radius: 6px;
   font-weight: bold;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+    padding: 16px 32px;
+  }
 `;
 
 export default function HeroSection() {

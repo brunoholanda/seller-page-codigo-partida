@@ -9,6 +9,7 @@ import BonusesSection from './components/BonusesSection';
 import GuaranteeSection from './components/GuaranteeSection';
 import PriceSection from './components/PriceSection';
 import FaqSection from './components/FaqSection';
+import MentorSection from './components/BrunoSection';
 // import outras seções aqui...
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
       <BonusesSection />
       <GuaranteeSection />
       <PriceSection />
+      <MentorSection />
       <FaqSection /> 
     </>
   );

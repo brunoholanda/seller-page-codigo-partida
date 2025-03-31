@@ -37,8 +37,8 @@ export default function PriceSection() {
   return (
     <Section>
       <Title>Comece agora o Código de Partida</Title>
-      <Price>De R$497 por R$197 à vista</Price>
-      <Installments>ou 12x de R$19,70</Installments>
+      <Price>De R$897 por R$597 à vista</Price>
+      <Installments>ou 12x de R$49,75</Installments>
       <CTAButton>Quero me inscrever agora</CTAButton>
     </Section>
   );
