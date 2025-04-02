@@ -15,6 +15,7 @@ const Section = styled.section`
   padding: 40px 20px;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
+  margin-bottom: 0;
 `;
 
 const Title = styled.h2`
@@ -30,7 +31,11 @@ const BenefitsGrid = styled.div`
   gap: 24px;
 
   @media (min-width: 600px) {
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
   }
 `;
 
@@ -38,6 +43,14 @@ const BenefitItem = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 16px;
+
+  @media (min-width: 600px) {
+    padding: 10px;
+    border-radius: 10px;
+    width: 360px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+
+  }
 `;
 
 const IconWrapper = styled.div`
