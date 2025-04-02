@@ -41,10 +41,6 @@ const BenefitItem = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  flex-shrink: 0;
-  background-color: ${({ theme }) => theme.iconBackground || '#f2f2f2'};
-  border-radius: 50%;
-  padding: 10px;
   color: ${({ theme }) => theme.icon || theme.text};
 `;
 
