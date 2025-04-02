@@ -13,8 +13,8 @@ import {
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: #fff;
-  color: #000;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -42,10 +42,10 @@ const BenefitItem = styled.div`
 
 const IconWrapper = styled.div`
   flex-shrink: 0;
-  color: #000;
-  background-color: #f2f2f2;
+  background-color: ${({ theme }) => theme.iconBackground || '#f2f2f2'};
   border-radius: 50%;
   padding: 10px;
+  color: ${({ theme }) => theme.icon || theme.text};
 `;
 
 const TextGroup = styled.div``;
@@ -58,7 +58,7 @@ const BoldText = styled.p`
 const SubText = styled.p`
   margin: 0;
   font-size: 0.95rem;
-  color: #444;
+  color: ${({ theme }) => theme.subText || '#666'};
 `;
 
 export default function BenefitsSection() {

@@ -6,8 +6,8 @@ import rafael from '../assets/rafael.webp';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background: #fff;
-  color: #000;
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
