@@ -1,76 +1,135 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  BadgePlus,
+  Code2,
+  Users,
+  Repeat,
+  Briefcase,
+  BrainCircuit,
+  Rocket,
+  Bot
+} from 'lucide-react';
 
 const Section = styled.section`
   padding: 40px 20px;
-  background-color: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.text};
+  background-color: #fff;
+  color: #000;
 `;
 
 const Title = styled.h2`
   font-size: 1.5rem;
-  text-align: center;
+  font-weight: bold;
   margin-bottom: 30px;
-`;
-
-const BenefitsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  @media(min-width: 600px) {
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  @media(min-width: 768px) {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-`;
-
-const Benefit = styled.div`
-  background-color: ${({ theme }) => theme.backgrounds};
-  padding: 20px;
-  border-radius: 8px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  flex: 1;
 `;
 
-const Emoji = styled.div`
-  font-size: 2rem;
-  margin-bottom: 10px;
+const BenefitsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
-const BenefitText = styled.p`
-  font-size: 1rem;
+const BenefitItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+`;
+
+const IconWrapper = styled.div`
+  flex-shrink: 0;
+  color: #000;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  padding: 10px;
+`;
+
+const TextGroup = styled.div``;
+
+const BoldText = styled.p`
+  font-weight: bold;
+  margin: 0;
+`;
+
+const SubText = styled.p`
+  margin: 0;
+  font-size: 0.95rem;
+  color: #444;
 `;
 
 export default function BenefitsSection() {
   return (
     <Section>
       <Title>Por que escolher o Código de Partida?</Title>
-      <BenefitsWrapper>
-        <Benefit>
-          <Emoji>🧠</Emoji>
-          <BenefitText>+200 aulas práticas, direto ao ponto</BenefitText>
-        </Benefit>
-        <Benefit>
-          <Emoji>⚙️</Emoji>
-          <BenefitText>HTML, CSS, JavaScript e React do básico ao avançado</BenefitText>
-        </Benefit>
-        <Benefit>
-          <Emoji>⏰</Emoji>
-          <BenefitText>Acesso vitalício e no seu ritmo</BenefitText>
-        </Benefit>
-        <Benefit>
-          <Emoji>🧑‍🤝‍🧑</Emoji>
-          <BenefitText>Comunidade ativa para tirar dúvidas e evoluir junto</BenefitText>
-        </Benefit>
-      </BenefitsWrapper>
+      <BenefitsGrid>
+        <BenefitItem>
+          <IconWrapper><BadgePlus size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>+200 aulas práticas</BoldText>
+            <SubText>do básico ao avançado</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Code2 size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Aprenda</BoldText>
+            <SubText>HTML, CSS, JavaScript e React</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Users size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Acesso vitalício</BoldText>
+            <SubText>e comunidade ativa</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Repeat size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Curso focado</BoldText>
+            <SubText>em prática, desafios e projetos reais</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Briefcase size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Carreira Dev</BoldText>
+            <SubText>LinkedIn, GitHub, portfólio e currículo</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Rocket size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Freelancer</BoldText>
+            <SubText>como conseguir clientes na prática</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><Bot size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Programação com IA</BoldText>
+            <SubText>use o ChatGPT no dia a dia dev</SubText>
+          </TextGroup>
+        </BenefitItem>
+
+        <BenefitItem>
+          <IconWrapper><BrainCircuit size={24} /></IconWrapper>
+          <TextGroup>
+            <BoldText>Motivação e Disciplina</BoldText>
+            <SubText>organização para manter o foco</SubText>
+          </TextGroup>
+        </BenefitItem>
+      </BenefitsGrid>
     </Section>
   );
 }
