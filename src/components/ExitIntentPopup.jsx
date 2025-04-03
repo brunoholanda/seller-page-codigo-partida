@@ -15,8 +15,9 @@ const Overlay = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Popup = styled.div`
-  position: relative; /* necessário para posicionar o X corretamente */
+  position: relative;
   background: ${({ theme }) => theme.background || '#fff'};
   color: ${({ theme }) => theme.text || '#111'};
   border-radius: 8px;
@@ -26,7 +27,6 @@ const Popup = styled.div`
   text-align: center;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
 `;
-
 
 const Title = styled.h2`
   font-size: 1.3rem;
@@ -79,6 +79,7 @@ const Small = styled.small`
   margin-top: 12px;
   color: ${({ theme }) => theme.textSecondary || '#777'};
 `;
+
 const CloseButton = styled.button`
   position: absolute;
   top: 6px;
@@ -102,7 +103,6 @@ const CloseButton = styled.button`
   }
 `;
 
-
 const ExitIntentPopup = ({ mentorRef }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -110,16 +110,14 @@ const ExitIntentPopup = ({ mentorRef }) => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    localStorage.setItem('popupExpired', 'true'); // <-- evita que apareça novamente
+    localStorage.setItem('popupExpired', 'true');
   };
 
-  // Verifica se mentorRef entrou na tela
+  // Observa a visibilidade da seção de referência
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setCanTriggerPopup(true);
-        }
+        setCanTriggerPopup(entry.isIntersecting);
       },
       { threshold: 0.3 }
     );
@@ -133,70 +131,83 @@ const ExitIntentPopup = ({ mentorRef }) => {
         observer.unobserve(mentorRef.current);
       }
     };
-  }, []);
+  }, [mentorRef]);
 
-  // Gatilho mobile: dedo saiu da tela
+  // Configura os gatilhos de exibição
   useEffect(() => {
-    let startY = 0;
+    // Função comum para inicializar o timer
+    const initializeTimer = () => {
+      const storedTime = localStorage.getItem('popupTimer');
+      const storedStart = localStorage.getItem('popupStart');
+      const now = Date.now();
 
+      if (storedTime && storedStart) {
+        const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
+        const remaining = parseInt(storedTime) - elapsed;
+        setTimeLeft(remaining > 0 ? remaining : 900);
+      } else {
+        const initialTime = 900; // 15 minutos
+        setTimeLeft(initialTime);
+        localStorage.setItem('popupStart', now.toString());
+        localStorage.setItem('popupTimer', initialTime.toString());
+      }
+    };
+
+    // Gatilho para desktop
+    const handleMouseLeave = (e) => {
+      if (e.clientY <= 0 && canTriggerPopup && !localStorage.getItem('popupExpired')) {
+        initializeTimer();
+        setShowPopup(true);
+      }
+    };
+
+    // Gatilho para mobile
+    let startY = 0;
     const handleTouchStart = (e) => {
       startY = e.touches[0].clientY;
     };
 
     const handleTouchEnd = (e) => {
       const endY = e.changedTouches[0].clientY;
-
-      // Detecta gesto de "sair" (rolar para cima com o dedo)
       const swipeUp = startY - endY > 50;
 
-      if (
-        swipeUp &&
-        canTriggerPopup &&
-        !showPopup &&
-        localStorage.getItem('popupExpired') !== 'true'
-      ) {
-        const storedTime = localStorage.getItem('popupTimer');
-        const storedStart = localStorage.getItem('popupStart');
-
-        if (storedTime && storedStart) {
-          const now = Date.now();
-          const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
-          const remaining = parseInt(storedTime) - elapsed;
-          setTimeLeft(remaining > 0 ? remaining : 15 * 60);
-        } else {
-          setTimeLeft(15 * 60);
-          localStorage.setItem('popupStart', Date.now().toString());
-          localStorage.setItem('popupTimer', (15 * 60).toString());
-        }
-
+      if (swipeUp && canTriggerPopup && !localStorage.getItem('popupExpired')) {
+        initializeTimer();
         setShowPopup(true);
       }
     };
 
+    // Adiciona listeners
+    document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('touchstart', handleTouchStart);
     document.addEventListener('touchend', handleTouchEnd);
 
     return () => {
+      document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [canTriggerPopup, showPopup]);
+  }, [canTriggerPopup]);
 
-
-  // Timer regressivo
+  // Controla o timer regressivo
   useEffect(() => {
     if (!showPopup || timeLeft <= 0) return;
+    
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         const updated = prev - 1;
+        
         if (updated <= 0) {
           localStorage.setItem('popupExpired', 'true');
           localStorage.removeItem('popupStart');
           localStorage.removeItem('popupTimer');
+          setShowPopup(false);
         }
+        
         return updated;
       });
     }, 1000);
+
     return () => clearInterval(interval);
   }, [showPopup, timeLeft]);
 

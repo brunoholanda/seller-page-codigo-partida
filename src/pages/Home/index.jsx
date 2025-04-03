@@ -20,7 +20,7 @@ if ('requestIdleCallback' in window) {
 }
 
 export default function Home() {
-  const [showExitPopup, setShowExitPopup] = useState(false);
+  const [, setShowExitPopup] = useState(false);
   const mentorRef = useRef(null);
 
   useEffect(() => {
@@ -34,9 +34,9 @@ export default function Home() {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Countdown /> {/* Já pode vir antes, é leve e importante */}
+        <Countdown /> 
       </Suspense>
-      <HeroSection /> {/* Conteúdo acima da dobra, importante ser imediato */}
+      <HeroSection />
 
       <Suspense fallback={<Loading />}>
         <BenefitsSection />
@@ -80,11 +80,7 @@ export default function Home() {
         <PageFooter />
       </Suspense>
 
-      {showExitPopup && (
-        <Suspense fallback={<div />}>
-          <ExitIntentPopup mentorRef={mentorRef} />
-        </Suspense>
-      )}
+      <ExitIntentPopup mentorRef={mentorRef} />
     </>
   );
 }
