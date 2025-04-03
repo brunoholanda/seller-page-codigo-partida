@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bgImg from '../assets/bg-mobile.webp';
-import { Helmet } from 'react-helmet';
+import bgImg from '../assets/hero.webp';
 
 // === STYLES ===
 
@@ -13,18 +12,13 @@ const CountdownBar = styled.div`
   align-items: center;
   padding: 8px 16px;
   gap: 12px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 12px;
-  }
+  flex-wrap: wrap;
 `;
 
 const CountdownLabel = styled.span`
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-  white-space: nowrap;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;
@@ -40,15 +34,12 @@ const CountdownBox = styled.div`
   text-align: center;
   font-weight: bold;
   margin: 0 5px;
-  flex-shrink: 0;
+  min-width: 45px;
 `;
 
 const CountdownContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
+  justify-content: space-between;
 `;
 
 const TimeValue = styled.div`
@@ -58,19 +49,19 @@ const TimeValue = styled.div`
 
 const TimeLabel = styled.div`
   font-size: 0.75rem;
-  text-transform: uppercase;
 `;
 
 const Hero = styled.section`
-  position: relative; 
-  width: 100%;
-  padding: 60px 12px;
+  min-height: 400px;
+  height: auto;
+  background-image: url(${bgImg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 20px;
   color: white;
   text-align: center;
-  background-color: #1a1a1a;
-  display: grid;
-  place-content: center;
-  overflow: hidden;
+  background-color: #000;
 
   @media (min-width: 768px) {
     padding: 120px 60px;
@@ -78,54 +69,23 @@ const Hero = styled.section`
   }
 `;
 
-const BackgroundImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
-  background-color: #2d2d2d;
 
-  /* Defina dimensões fixas ou use aspect-ratio 
-     para evitar layout shift ao carregar */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-  }
-`;
-
-const ContentWrapper = styled.div`
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-`;
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  margin: 0 auto 30px;
-  max-width: 95%;
-  line-height: 1.2;
+  margin-bottom: 10px;
 
   @media (min-width: 768px) {
-    font-size: 3.5rem;
-    max-width: 800px;
+    font-size: 3rem;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.2rem;
-  margin: 0 auto 20px;
-  max-width: 90%;
-  
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+
   @media (min-width: 768px) {
-    font-size: 1.5rem;
-    max-width: 600px;
+    font-size: 1.2rem;
   }
 `;
 
@@ -136,20 +96,12 @@ const CTAButton = styled.a`
   border: none;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 20px;
   text-decoration: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   min-width: 210px;
-  transition: transform 0.2s;
-  position: relative;
-  z-index: 2;
-  
-  &:hover {
-    transform: translateY(-2px);
-  }
-
   @media (min-width: 768px) {
     font-size: 1.2rem;
     padding: 16px 32px;
@@ -157,18 +109,18 @@ const CTAButton = styled.a`
 `;
 
 const StoryBlock = styled.p`
-  font-size: 1rem;
-  margin: 30px auto;
+  font-size: .9rem;
+  margin: 20px auto;
   max-width: 600px;
   line-height: 1.6;
-  padding: 0 15px;
 
   @media (min-width: 768px) {
     font-size: 1.1rem;
   }
 `;
 
-// === COMPONENTES ===
+
+// === COMPONENT ===
 
 function Countdown() {
   const [time, setTime] = useState({
@@ -198,8 +150,8 @@ function Countdown() {
       setTime({ days, hours, minutes, seconds });
     };
 
+    updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
-    updateCountdown(); // Chamada inicial
     return () => clearInterval(interval);
   }, []);
 
@@ -229,49 +181,23 @@ function Countdown() {
 }
 
 export default function HeroSection() {
-  const whatsappLink = 'https://pay.kiwify.com.br/GAQHdpq';
+  const whatsappLink = `https://pay.kiwify.com.br/GAQHdpq`;
 
   return (
     <>
-      <Helmet>
-        {/* 
-          Removemos o preload para não priorizar este download.
-          Se a imagem estiver totalmente acima da dobra, 
-          ela pode continuar sendo considerada LCP. 
-        */}
-      </Helmet>
-
       <Countdown />
-
       <Hero>
-        <BackgroundImage
-          src={bgImg}
-          alt="Fundo da seção de herói"
-          /*
-            Agora usamos loading="lazy" para adiar o carregamento 
-            até que a imagem esteja próxima/visível ao usuário.
-          */
-          loading="lazy"
-          decoding="async"
-        />
-        <ContentWrapper>
-          <Title>Código de Partida</Title>
-          <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
+        <Title>Código de Partida</Title>
+        <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
 
-          <StoryBlock>
-            Você não precisa ser um gênio pra programar.
-            <br />
-            O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.
-          </StoryBlock>
+        <StoryBlock>
+          Você não precisa ser um gênio pra programar.<br />
+          O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.<br />
+        </StoryBlock>
 
-          <CTAButton
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Quero começar agora
-          </CTAButton>
-        </ContentWrapper>
+        <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          Quero começar agora
+        </CTAButton>
       </Hero>
     </>
   );
