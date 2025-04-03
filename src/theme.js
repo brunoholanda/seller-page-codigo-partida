@@ -14,5 +14,6 @@ export const darkTheme = {
     text: '#ffffff',
     primary: '#ff7a00',
     secondary: '#121212',
+    border: '#444' 
   };
   
