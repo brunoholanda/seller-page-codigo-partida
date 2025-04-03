@@ -61,7 +61,7 @@ const TimeLabel = styled.div`
 `;
 const Hero = styled.section`
   position: relative;
-  height: 50vh; 
+  height: 70vh; 
   width: 100%;
   padding: 60px 12px;
   color: white;
@@ -228,20 +228,27 @@ export default function HeroSection() {
       <Helmet>
         <link rel="preload" href={bgImg} as="image" imagesrcset="[URLs para diferentes resoluções]" />
 
-        <style>
-          {`.cls-fix { visibility: hidden; }
-+             .cls-fix::before { 
-+               content: ""; 
-+               display: block; 
-+               padding-top: 56.25%; // Aspect ratio 16:9
-+             }`}
-        </style>
+        <style>{`
+         .hero-aspect-ratio {
+           position: relative;
+           overflow: hidden;
+         }
+         .hero-aspect-ratio::before {
+           content: "";
+           display: block;
+           padding-top: 56.25%; /* 16:9 aspect ratio */
+         }
+       `}</style>
       </Helmet>
 
       <Countdown />
       <Hero>
-        <BackgroundImage src={bgImg} alt="Fundo da seção de herói" loading='lazy' />
-        <ContentWrapper>
+        <BackgroundImage
+          src={bgImg}
+          alt="Fundo da seção de herói"
+          loading="eager"
+          decoding="async"
+        />        <ContentWrapper>
           <Title>Código de Partida</Title>
           <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
 
