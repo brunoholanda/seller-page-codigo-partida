@@ -92,7 +92,7 @@ const FaqSection = forwardRef((props, ref) => {
     <Section ref={ref}>
       <Title>Dúvidas Frequentes</Title>
 
-      <Question title="Preciso saber algo antes de começar?">
+      <Question title="Preciso saber algo antes de começar? ">
         Não! O curso foi feito para quem está começando do zero.
       </Question>
 
@@ -146,7 +146,7 @@ const FaqSection = forwardRef((props, ref) => {
             Sim! Mantemos o conteúdo atualizado para acompanhar o mercado. Você vai aprender ferramentas e práticas que são realmente usadas por empresas e freelancers hoje.
           </Question>
 
-          <Question title="Já tentei aprender antes e não consegui. Esse curso vai funcionar pra mim?">
+          <Question title="Já tentei aprender antes e não consegui. Esse curso vai funcionar pra mim? ">
             Entendemos isso. O Código de Partida foi pensado exatamente pra quem já tentou e travou. Nosso método é simples, direto e com foco em prática. Você não vai se sentir perdido.
           </Question>
 
