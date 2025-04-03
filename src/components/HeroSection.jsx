@@ -79,6 +79,8 @@ const Hero = styled.section`
 `;
 
 const BackgroundImage = styled.img`
+  /* Importante: defina as dimensões ou aspect-ratio
+     para evitar mudança de layout (CLS). */
   position: absolute;
   top: 0;
   left: 0;
@@ -87,13 +89,21 @@ const BackgroundImage = styled.img`
   user-select: none;
   background-color: #2d2d2d;
 
-  /* Defina dimensões fixas ou use aspect-ratio 
-     para evitar layout shift ao carregar */
+  /* Exemplo usando width/height fixos mais object-fit:
+     Ajuste conforme o tamanho real ou use aspect-ratio. */
   width: 100%;
   height: 100%;
   object-fit: cover;
 
+  /* Se preferir aspect-ratio fixo:
+     aspect-ratio: 16 / 9;
+     width: 100%;
+     height: auto;
+  */
+
   @media (max-width: 768px) {
+    /* Ajuste conforme necessário; aqui garantimos
+       que a imagem ocupe todo o espaço em mobile */
     width: 100%;
     height: auto;
   }
@@ -229,29 +239,48 @@ function Countdown() {
 }
 
 export default function HeroSection() {
-  const whatsappLink = 'https://pay.kiwify.com.br/GAQHdpq';
+  const whatsappLink = `https://pay.kiwify.com.br/GAQHdpq`;
 
   return (
     <>
       <Helmet>
-        {/* 
-          Removemos o preload para não priorizar este download.
-          Se a imagem estiver totalmente acima da dobra, 
-          ela pode continuar sendo considerada LCP. 
+        {/*
+          Pré-carregando a imagem de maior exibição de conteúdo (LCP).
+          Ajuste 'imagesrcset' e 'sizes' conforme suas versões de imagem.
         */}
+        <link
+          rel="preload"
+          as="image"
+          href={bgImg}
+          // example de srcset/sizes (caso você tenha várias versões):
+          // imagesrcset="
+          //   /assets/bg-mobile-small.webp 480w,
+          //   /assets/bg-mobile.webp 768w,
+          //   /assets/bg-desktop.webp 1200w
+          // "
+          // imagesizes="(max-width: 768px) 100vw, 768px"
+        />
+
+        <style>{`
+          .hero-aspect-ratio {
+            position: relative;
+            overflow: hidden;
+          }
+          .hero-aspect-ratio::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+          }
+        `}</style>
       </Helmet>
 
       <Countdown />
-
       <Hero>
         <BackgroundImage
           src={bgImg}
           alt="Fundo da seção de herói"
-          /*
-            Agora usamos loading="lazy" para adiar o carregamento 
-            até que a imagem esteja próxima/visível ao usuário.
-          */
-          loading="lazy"
+          // Mantenha 'loading="eager"' pois é seu LCP
+          loading="eager"
           decoding="async"
         />
         <ContentWrapper>
@@ -264,11 +293,7 @@ export default function HeroSection() {
             O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.
           </StoryBlock>
 
-          <CTAButton
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
             Quero começar agora
           </CTAButton>
         </ContentWrapper>
