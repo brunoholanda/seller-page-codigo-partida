@@ -34,7 +34,6 @@ const CountdownBox = styled.div`
   text-align: center;
   font-weight: bold;
   margin: 0 5px;
-  min-width: 45px;
 `;
 
 const CountdownContainer = styled.div`
@@ -44,7 +43,6 @@ const CountdownContainer = styled.div`
 
 const TimeValue = styled.div`
   font-size: 1.2rem;
-  font-family: monospace;
 `;
 
 const TimeLabel = styled.div`
@@ -53,12 +51,10 @@ const TimeLabel = styled.div`
 
 const Hero = styled.section`
   min-height: 400px;
-  height: auto;
   background-image: url(${bgImg});
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  padding: 80px 20px;
+  padding: 80px 15px;
   color: white;
   text-align: center;
   background-color: #000;
@@ -68,8 +64,6 @@ const Hero = styled.section`
     min-height: 600px;
   }
 `;
-
-
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -98,10 +92,8 @@ const CTAButton = styled.a`
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 210px;
+  display: inline-block;
+
   @media (min-width: 768px) {
     font-size: 1.2rem;
     padding: 16px 32px;
@@ -109,7 +101,7 @@ const CTAButton = styled.a`
 `;
 
 const StoryBlock = styled.p`
-  font-size: .9rem;
+  font-size: .8rem;
   margin: 20px auto;
   max-width: 600px;
   line-height: 1.6;
