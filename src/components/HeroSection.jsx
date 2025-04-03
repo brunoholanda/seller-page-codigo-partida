@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bgImg from '../assets/bg-mobile.webp';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
 
 // === STYLES ===
 
@@ -13,6 +13,7 @@ const CountdownBar = styled.div`
   align-items: center;
   padding: 8px 16px;
   gap: 12px;
+
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 12px;
@@ -35,7 +36,7 @@ const CountdownBox = styled.div`
   color: #424242;
   padding: 5px 10px;
   border-radius: 10px;
-  min-width: 50px;
+  min-width: 40px;
   text-align: center;
   font-weight: bold;
   margin: 0 5px;
@@ -47,7 +48,7 @@ const CountdownContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 2px;
 `;
 
 const TimeValue = styled.div`
@@ -59,6 +60,7 @@ const TimeLabel = styled.div`
   font-size: 0.75rem;
   text-transform: uppercase;
 `;
+
 const Hero = styled.section`
   position: relative; 
   width: 100%;
@@ -77,21 +79,33 @@ const Hero = styled.section`
 `;
 
 const BackgroundImage = styled.img`
+  /* Importante: defina as dimensões ou aspect-ratio
+     para evitar mudança de layout (CLS). */
   position: absolute;
   top: 0;
   left: 0;
-  height: 397px;
-  width: 400px;
-  object-fit: cover;
-  aspect-ratio: 16/9; 
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  background-color: #2d2d2d; 
+  background-color: #2d2d2d;
 
-  @media (min-width: 768px) {
-    height: 100%;
+  /* Exemplo usando width/height fixos mais object-fit:
+     Ajuste conforme o tamanho real ou use aspect-ratio. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Se preferir aspect-ratio fixo:
+     aspect-ratio: 16 / 9;
+     width: 100%;
+     height: auto;
+  */
+
+  @media (max-width: 768px) {
+    /* Ajuste conforme necessário; aqui garantimos
+       que a imagem ocupe todo o espaço em mobile */
     width: 100%;
+    height: auto;
   }
 `;
 
@@ -164,7 +178,7 @@ const StoryBlock = styled.p`
   }
 `;
 
-// === COMPONENT ===
+// === COMPONENTES ===
 
 function Countdown() {
   const [time, setTime] = useState({
@@ -195,7 +209,7 @@ function Countdown() {
     };
 
     const interval = setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call
+    updateCountdown(); // Chamada inicial
     return () => clearInterval(interval);
   }, []);
 
@@ -230,19 +244,34 @@ export default function HeroSection() {
   return (
     <>
       <Helmet>
-        <link rel="preload" href={bgImg} as="image" imagesrcset="[URLs para diferentes resoluções]" />
+        {/*
+          Pré-carregando a imagem de maior exibição de conteúdo (LCP).
+          Ajuste 'imagesrcset' e 'sizes' conforme suas versões de imagem.
+        */}
+        <link
+          rel="preload"
+          as="image"
+          href={bgImg}
+          // example de srcset/sizes (caso você tenha várias versões):
+          // imagesrcset="
+          //   /assets/bg-mobile-small.webp 480w,
+          //   /assets/bg-mobile.webp 768w,
+          //   /assets/bg-desktop.webp 1200w
+          // "
+          // imagesizes="(max-width: 768px) 100vw, 768px"
+        />
 
         <style>{`
-         .hero-aspect-ratio {
-           position: relative;
-           overflow: hidden;
-         }
-         .hero-aspect-ratio::before {
-           content: "";
-           display: block;
-           padding-top: 56.25%; /* 16:9 aspect ratio */
-         }
-       `}</style>
+          .hero-aspect-ratio {
+            position: relative;
+            overflow: hidden;
+          }
+          .hero-aspect-ratio::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+          }
+        `}</style>
       </Helmet>
 
       <Countdown />
@@ -250,6 +279,7 @@ export default function HeroSection() {
         <BackgroundImage
           src={bgImg}
           alt="Fundo da seção de herói"
+          // Mantenha 'loading="eager"' pois é seu LCP
           loading="eager"
           decoding="async"
         />
@@ -258,7 +288,8 @@ export default function HeroSection() {
           <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
 
           <StoryBlock>
-            Você não precisa ser um gênio pra programar.<br />
+            Você não precisa ser um gênio pra programar.
+            <br />
             O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.
           </StoryBlock>
 
