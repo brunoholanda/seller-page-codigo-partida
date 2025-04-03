@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Afiliados from './pages/Afiliados';
-import NotFound from './pages/NotFound';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
 import { GlobalStyle } from './globalStyles';
+
+const Afiliados = lazy(() => import('./pages/Afiliados'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 export default function App() {
   const [theme, setTheme] = useState(lightTheme);

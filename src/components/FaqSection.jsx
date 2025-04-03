@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, forwardRef  } from 'react';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -85,64 +85,66 @@ function Question({ title, children }) {
   );
 }
 
-export default function FaqSection() {
-  const [showMore, setShowMore] = useState(false);
+  const FaqSection = forwardRef((props, ref) => {
+    const [showMore, setShowMore] = useState(false);
 
-  return (
-    <Section>
-      <Title>Dúvidas Frequentes</Title>
+    return (
+      <Section ref={ref}>
+        <Title>Dúvidas Frequentes</Title>
 
-      <Question title="Preciso saber algo antes de começar?">
-        Não! O curso foi feito para quem está começando do zero.
-      </Question>
+        <Question title="Preciso saber algo antes de começar?">
+          Não! O curso foi feito para quem está começando do zero.
+        </Question>
 
-      <Question title="O curso tem certificado?">
-        Sim! Você recebe um certificado ao concluir todas as aulas.
-      </Question>
+        <Question title="O curso tem certificado?">
+          Sim! Você recebe um certificado ao concluir todas as aulas.
+        </Question>
 
-      <Question title="Posso assistir pelo celular?">
-        Sim! Porém você precisa praticar e para isso é necessário um computador.
-      </Question>
+        <Question title="Posso assistir pelo celular?">
+          Sim! Porém você precisa praticar e para isso é necessário um computador.
+        </Question>
 
-      <Question title="Preciso de um computador potente?">
-        Não, você pode usar qualquer computador, com qualquer configuração que vai ser possível assistir às aulas e praticar o aprendizado.
-      </Question>
+        <Question title="Preciso de um computador potente?">
+          Não, você pode usar qualquer computador, com qualquer configuração que vai ser possível assistir às aulas e praticar o aprendizado.
+        </Question>
 
-      {!showMore && (
-        <MoreButton onClick={() => setShowMore(true)}>Mais perguntas...</MoreButton>
-      )}
+        {!showMore && (
+          <MoreButton onClick={() => setShowMore(true)}>Mais perguntas...</MoreButton>
+        )}
 
-      {showMore && (
-        <>
-          <Question title="Como funciona a comunidade?">
-            Você receberá um link para o Discord onde poderá tirar dúvidas e interagir com outros alunos.
-          </Question>
+        {showMore && (
+          <>
+            <Question title="Como funciona a comunidade?">
+              Você receberá um link para o Discord onde poderá tirar dúvidas e interagir com outros alunos.
+            </Question>
 
-          <Question title="Por quanto tempo terei acesso ao curso?">
-            Acesso vitalício. Você pode ver e rever as aulas sempre que quiser, no seu tempo.
-          </Question>
+            <Question title="Por quanto tempo terei acesso ao curso?">
+              Acesso vitalício. Você pode ver e rever as aulas sempre que quiser, no seu tempo.
+            </Question>
 
-          <Question title="Preciso seguir uma rotina rígida?">
-            Não! O curso é feito para se adaptar à sua rotina. Você pode estudar nos horários que forem mais confortáveis pra você.
-          </Question>
+            <Question title="Preciso seguir uma rotina rígida?">
+              Não! O curso é feito para se adaptar à sua rotina. Você pode estudar nos horários que forem mais confortáveis pra você.
+            </Question>
 
-          <Question title="Tem suporte se eu ficar travado(a)?">
-            Sim! Você pode tirar dúvidas na comunidade e com o nosso suporte, estamos aqui pra te ajudar.
-          </Question>
+            <Question title="Tem suporte se eu ficar travado(a)?">
+              Sim! Você pode tirar dúvidas na comunidade e com o nosso suporte, estamos aqui pra te ajudar.
+            </Question>
 
-          <Question title="Tem aulas práticas ou é só teoria?">
-            O curso é 100% focado na prática com exercícios, projetos e desafios reais.
-          </Question>
+            <Question title="Tem aulas práticas ou é só teoria?">
+              O curso é 100% focado na prática com exercícios, projetos e desafios reais.
+            </Question>
 
-          <Question title="Vai me ajudar a conseguir meu primeiro trabalho?">
-            Sim! Além das aulas técnicas, você vai aprender a montar um portfólio, LinkedIn e currículo que realmente chamam atenção de recrutadores e clientes.
-          </Question>
+            <Question title="Vai me ajudar a conseguir meu primeiro trabalho?">
+              Sim! Além das aulas técnicas, você vai aprender a montar um portfólio, LinkedIn e currículo que realmente chamam atenção de recrutadores e clientes.
+            </Question>
 
-          <Question title="Tem garantia?">
-            Sim! Você tem 7 dias para testar o curso e, se não curtir, pode pedir reembolso total.
-          </Question>
-        </>
-      )}
-    </Section>
+            <Question title="Tem garantia?">
+              Sim! Você tem 7 dias para testar o curso e, se não curtir, pode pedir reembolso total.
+            </Question>
+          </>
+        )}
+      </Section>
   );
-}
+});
+
+export default FaqSection;
