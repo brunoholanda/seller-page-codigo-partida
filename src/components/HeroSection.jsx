@@ -59,38 +59,35 @@ const TimeLabel = styled.div`
   font-size: 0.75rem;
   text-transform: uppercase;
 `;
-
 const Hero = styled.section`
   position: relative;
   min-height: 400px;
   width: 100%;
-  background-image: url(${bgImg});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   padding: 60px 12px;
   color: white;
   text-align: center;
   background-color: #1a1a1a;
   display: grid;
   place-content: center;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     padding: 120px 60px;
     min-height: 600px;
   }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
 `;
 
+const BackgroundImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+`;
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -229,9 +226,10 @@ export default function HeroSection() {
       <Helmet>
         <link rel="preload" href={bgImg} as="image" /> {/* Pré-carregamento otimizado */}
       </Helmet>
-      
+
       <Countdown />
       <Hero>
+        <BackgroundImage src={bgImg} alt="Fundo da seção de herói" />
         <ContentWrapper>
           <Title>Código de Partida</Title>
           <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
