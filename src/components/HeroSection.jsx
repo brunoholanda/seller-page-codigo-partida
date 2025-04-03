@@ -71,8 +71,8 @@ export default function HeroSection() {
   return (
     <>
       <Hero>
-        <Title>Código de Partida</Title>
-        <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
+        <Title as="h1">Código de Partida</Title>
+        <Subtitle as="h2">Aprenda programação do zero e mude sua vida com tecnologia</Subtitle>
 
         <StoryBlock>
           Você não precisa ser um gênio pra programar.<br />
