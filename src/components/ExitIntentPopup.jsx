@@ -1,4 +1,3 @@
-// components/ExitIntentPopup.js
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -18,18 +17,20 @@ const Overlay = styled.div`
 `;
 
 const Popup = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.background || '#fff'};
+  color: ${({ theme }) => theme.text || '#111'};
   border-radius: 8px;
   padding: 32px;
   width: 90%;
   max-width: 500px;
   text-align: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
 `;
 
 const Title = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 12px;
-  color: #111;
+  color: ${({ theme }) => theme.text || '#111'};
 `;
 
 const Subtitle = styled.p`
@@ -38,8 +39,8 @@ const Subtitle = styled.p`
 `;
 
 const Coupon = styled.div`
-  background: #ff6600;
-  color: white;
+  background:#000;
+  color: #ffffff;
   font-size: 1.25rem;
   font-weight: bold;
   padding: 12px;
@@ -51,125 +52,125 @@ const Coupon = styled.div`
 
 const Timer = styled.div`
   font-size: 1.2rem;
-  color: #d32f2f;
+  color: ${({ theme }) => theme.alert || '#d32f2f'};
   font-weight: bold;
   margin-bottom: 24px;
 `;
 
 const Button = styled.button`
-  background-color: #111;
-  color: white;
+  background-color: ${({ theme }) => theme.primary || '#111'};
+  color: ${({ theme }) => theme.textContrast || '#ffffff'};
   border: none;
   padding: 12px 24px;
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
   width: 100%;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primaryHover || '#e56c00'};
+  }
 `;
 
 const Small = styled.small`
   display: block;
   margin-top: 12px;
-  color: #777;
+  color: ${({ theme }) => theme.textSecondary || '#777'};
 `;
+
 const ExitIntentPopup = ({ mentorRef }) => {
-    const [showPopup, setShowPopup] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !showPopup) {
-                    // Configura o timer ao detectar a seção
-                    const storedTime = localStorage.getItem('popupTimer');
-                    const storedStart = localStorage.getItem('popupStart');
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !showPopup) {
+          const storedTime = localStorage.getItem('popupTimer');
+          const storedStart = localStorage.getItem('popupStart');
 
-                    if (storedTime && storedStart) {
-                        const now = Date.now();
-                        const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
-                        const remaining = parseInt(storedTime) - elapsed;
-                        setTimeLeft(remaining > 0 ? remaining : 15 * 60);
-                    } else {
-                        setTimeLeft(15 * 60);
-                        localStorage.setItem('popupStart', Date.now().toString());
-                        localStorage.setItem('popupTimer', (15 * 60).toString());
-                    }
+          if (storedTime && storedStart) {
+            const now = Date.now();
+            const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
+            const remaining = parseInt(storedTime) - elapsed;
+            setTimeLeft(remaining > 0 ? remaining : 15 * 60);
+          } else {
+            setTimeLeft(15 * 60);
+            localStorage.setItem('popupStart', Date.now().toString());
+            localStorage.setItem('popupTimer', (15 * 60).toString());
+          }
 
-                    setShowPopup(true);
-                    observer.disconnect(); // Para de observar após mostrar
-                }
-            },
-            { threshold: 0.3 }
-        );
-
-        if (mentorRef.current) {
-            observer.observe(mentorRef.current);
+          setShowPopup(true);
+          observer.disconnect();
         }
-
-        return () => {
-            if (mentorRef.current) {
-                observer.unobserve(mentorRef.current);
-            }
-        };
-    }, []);
-
-    // Timer
-    useEffect(() => {
-        if (!showPopup || timeLeft <= 0) return;
-        const interval = setInterval(() => {
-            setTimeLeft((prev) => {
-                const updated = prev - 1;
-                if (updated <= 0) {
-                    localStorage.removeItem('popupStart');
-                    localStorage.removeItem('popupTimer');
-                }
-                return updated;
-            });
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [showPopup, timeLeft]);
-
-    const formatTime = (seconds) => {
-        const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-        const sec = String(seconds % 60).padStart(2, '0');
-        return `${min}:${sec}`;
-    };
-
-    const handleCouponClick = () => {
-        navigator.clipboard.writeText('ULTIMACHANCEDEV');
-        toast.success('🎉 Cupom copiado com sucesso!', {
-            position: 'top-center',
-            autoClose: 3000,
-        });
-    };
-
-    const handleUseCoupon = () => {
-        window.open('https://pay.kiwify.com.br/GAQHdpq', '_blank');
-    };
-
-    return (
-        <>
-            <ToastContainer />
-
-            {showPopup && timeLeft > 0 && (
-                <Overlay>
-                    <Popup>
-                        <Title>💥 Última chance antes de sair!</Title>
-                        <Subtitle>
-                            Use o cupom abaixo para garantir <strong>25% de desconto</strong> nos próximos <strong>{formatTime(timeLeft)}</strong>.
-                        </Subtitle>
-
-                        <Coupon onClick={handleCouponClick}>
-                            ULTIMACHANCEDEV
-                        </Coupon>
-                        <Timer>Tempo restante: {formatTime(timeLeft)}</Timer>
-                        <Button onClick={handleUseCoupon}>Usar meu cupom agora</Button>
-                        <Small>Essa oferta expira assim que o tempo zerar.</Small>
-                    </Popup>
-                </Overlay>
-            )}
-        </>
+      },
+      { threshold: 0.3 }
     );
+
+    if (mentorRef.current) {
+      observer.observe(mentorRef.current);
+    }
+
+    return () => {
+      if (mentorRef.current) {
+        observer.unobserve(mentorRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showPopup || timeLeft <= 0) return;
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        const updated = prev - 1;
+        if (updated <= 0) {
+          localStorage.removeItem('popupStart');
+          localStorage.removeItem('popupTimer');
+        }
+        return updated;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [showPopup, timeLeft]);
+
+  const formatTime = (seconds) => {
+    const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const sec = String(seconds % 60).padStart(2, '0');
+    return `${min}:${sec}`;
+  };
+
+  const handleCouponClick = () => {
+    navigator.clipboard.writeText('ULTIMACHANCEDEV');
+    toast.success('🎉 Cupom copiado com sucesso!', {
+      position: 'top-center',
+      autoClose: 3000,
+    });
+  };
+
+  const handleUseCoupon = () => {
+    window.open('https://pay.kiwify.com.br/GAQHdpq', '_blank');
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      {showPopup && timeLeft > 0 && (
+        <Overlay>
+          <Popup>
+            <Title>💥 Última chance antes de sair!</Title>
+            <Subtitle>
+              Use o cupom abaixo para garantir <strong>25% de desconto</strong> nos próximos <strong>{formatTime(timeLeft)}</strong>.
+            </Subtitle>
+            <Coupon onClick={handleCouponClick}>ULTIMACHANCEDEV</Coupon>
+            <Timer>Tempo restante: {formatTime(timeLeft)}</Timer>
+            <Button onClick={handleUseCoupon}>Usar meu cupom agora</Button>
+            <Small>Essa oferta expira assim que o tempo zerar.</Small>
+          </Popup>
+        </Overlay>
+      )}
+    </>
+  );
 };
 
 export default ExitIntentPopup;

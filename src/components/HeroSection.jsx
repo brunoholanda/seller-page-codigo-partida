@@ -161,7 +161,7 @@ function Countdown() {
 }
 
 export default function HeroSection() {
-  const whatsappLink = `https://wa.me/5583998150712?text=${encodeURIComponent("quero aprender programação do zero")}`;
+  const whatsappLink = `https://pay.kiwify.com.br/GAQHdpq`;
 
   return (
     <>
