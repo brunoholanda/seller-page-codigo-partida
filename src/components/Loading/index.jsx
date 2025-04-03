@@ -17,8 +17,8 @@ const Container = styled.div`
     .spinner {
         width: 48px;
         height: 48px;
-        border: 6px solid #cce4ff;
-        border-top: 6px solid #007bff;
+        border: 6px solid #ffd2a7;
+        border-top: 6px solid #ff7a00;
         border-radius: 50%;
         animation: ${spin} 1s linear infinite;
     }

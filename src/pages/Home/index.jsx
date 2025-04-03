@@ -3,8 +3,8 @@ import Loading from '../../components/Loading';
 import ExitIntentPopup from '../../components/ExitIntentPopup';
 
 // Lazy load para os componentes abaixo da dobra
+const Countdown = React.lazy(() => import('../../components/Countdown'));
 const HeroSection = React.lazy(() => import('../../components/HeroSection'));
-
 const BenefitsSection = React.lazy(() => import('../../components/BenefitsSection'));
 const ForWhoSection = React.lazy(() => import('../../components/ForWhoSection'));
 const WhatYouLearnSection = React.lazy(() => import('../../components/WhatYouLearnSection'));
@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <Suspense fallback={<Loading />}>
-
+        <Countdown />
         <HeroSection />
 
         <BenefitsSection />
