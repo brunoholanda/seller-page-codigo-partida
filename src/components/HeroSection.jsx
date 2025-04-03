@@ -12,13 +12,17 @@ const CountdownBar = styled.div`
   align-items: center;
   padding: 8px 16px;
   gap: 12px;
-  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 12px;
+  }
 `;
 
 const CountdownLabel = styled.span`
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
+  white-space: nowrap;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;
@@ -30,16 +34,19 @@ const CountdownBox = styled.div`
   color: #424242;
   padding: 5px 10px;
   border-radius: 10px;
-  min-width: 40px;
+  min-width: 50px;
   text-align: center;
   font-weight: bold;
   margin: 0 5px;
-  min-width: 45px;
+  flex-shrink: 0;
 `;
 
 const CountdownContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 `;
 
 const TimeValue = styled.div`
@@ -49,43 +56,67 @@ const TimeValue = styled.div`
 
 const TimeLabel = styled.div`
   font-size: 0.75rem;
+  text-transform: uppercase;
 `;
 
 const Hero = styled.section`
+  position: relative;
   min-height: 400px;
-  height: auto;
+  width: 100%;
   background-image: url(${bgImg});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 80px 20px;
+  padding: 60px 12px;
   color: white;
   text-align: center;
-  background-color: #000;
+  background-color: #1a1a1a;
+  display: grid;
+  place-content: center;
 
   @media (min-width: 768px) {
     padding: 120px 60px;
     min-height: 600px;
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
 `;
 
-
+const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  margin: 0 auto 30px;
+  max-width: 95%;
+  line-height: 1.2;
 
   @media (min-width: 768px) {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    max-width: 800px;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-
+  font-size: 1.2rem;
+  margin: 0 auto 20px;
+  max-width: 90%;
+  
   @media (min-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    max-width: 600px;
   }
 `;
 
@@ -96,12 +127,20 @@ const CTAButton = styled.a`
   border: none;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.1rem;
   text-decoration: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   min-width: 210px;
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 2;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+
   @media (min-width: 768px) {
     font-size: 1.2rem;
     padding: 16px 32px;
@@ -109,16 +148,16 @@ const CTAButton = styled.a`
 `;
 
 const StoryBlock = styled.p`
-  font-size: .9rem;
-  margin: 20px auto;
+  font-size: 1rem;
+  margin: 30px auto;
   max-width: 600px;
   line-height: 1.6;
+  padding: 0 15px;
 
   @media (min-width: 768px) {
     font-size: 1.1rem;
   }
 `;
-
 
 // === COMPONENT ===
 
@@ -150,8 +189,8 @@ function Countdown() {
       setTime({ days, hours, minutes, seconds });
     };
 
-    updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
     return () => clearInterval(interval);
   }, []);
 
@@ -183,21 +222,29 @@ function Countdown() {
 export default function HeroSection() {
   const whatsappLink = `https://pay.kiwify.com.br/GAQHdpq`;
 
+  // Pré-carregar a imagem de fundo
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgImg;
+  }, []);
+
   return (
     <>
       <Countdown />
       <Hero>
-        <Title>Código de Partida</Title>
-        <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
+        <ContentWrapper>
+          <Title>Código de Partida</Title>
+          <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
 
-        <StoryBlock>
-          Você não precisa ser um gênio pra programar.<br />
-          O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.<br />
-        </StoryBlock>
+          <StoryBlock>
+            Você não precisa ser um gênio pra programar.<br />
+            O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.
+          </StoryBlock>
 
-        <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
-          Quero começar agora
-        </CTAButton>
+          <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            Quero começar agora
+          </CTAButton>
+        </ContentWrapper>
       </Hero>
     </>
   );
