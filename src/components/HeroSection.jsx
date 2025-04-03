@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bgImg from '../assets/hero.webp';
+import bgImg from '../assets/hero_resized.webp';
 
 // === STYLES ===
 
