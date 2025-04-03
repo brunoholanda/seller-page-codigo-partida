@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, HashRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Afiliados from './pages/Afiliados';
 import NotFound from './pages/NotFound';
@@ -28,13 +28,15 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/afiliados" element={<Afiliados />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+      <HashRouter>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/afiliados" element={<Afiliados />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </HashRouter>
     </ThemeProvider>
   );
 }
