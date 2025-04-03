@@ -100,6 +100,18 @@ const CTAButton = styled.a`
   }
 `;
 
+const StoryBlock = styled.p`
+  font-size: .9rem;
+  margin: 20px auto;
+  max-width: 600px;
+  line-height: 1.6;
+
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+  }
+`;
+
+
 // === COMPONENT ===
 
 function Countdown() {
@@ -169,6 +181,12 @@ export default function HeroSection() {
       <Hero>
         <Title>Código de Partida</Title>
         <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
+
+        <StoryBlock>
+          Você não precisa ser um gênio pra programar.<br />
+          O que você precisa é de um passo a passo simples e direto — e alguém que já trilhou o caminho pra te guiar.<br />
+        </StoryBlock>
+
         <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
           Quero começar agora
         </CTAButton>

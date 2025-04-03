@@ -61,6 +61,9 @@ export default function MentorSection() {
       <Img src={suaFoto} alt="Bruno - Mentor do curso" loading='lazy' />
       <Paragraph>
         Bruno Holanda aqui. Produzo conteúdo sobre tecnologia e ensino desde 2013.
+
+        <br /><br />
+        “Se eu consegui sair do zero e mudar de vida com programação, você também consegue. Me deixa te mostrar como.”
         <br /><br />
         Já ajudei pessoas a entrarem na área de TI, inclusive muitas que vieram de áreas completamente diferentes, como saúde, administração e até bancária (minha antiga profissão!).
         {!showMore ? (

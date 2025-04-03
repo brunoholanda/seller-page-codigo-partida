@@ -40,7 +40,7 @@ export default function PriceSection() {
   return (
     <Section>
       <Title>Comece agora o Código de Partida</Title>
-      <Price>De R$897 por R$597 à vista</Price>
+      <Price>De R$897 por R$697 à vista</Price>
       <Installments>ou 12x de R$49,75</Installments>
       <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
         Quero começar agora

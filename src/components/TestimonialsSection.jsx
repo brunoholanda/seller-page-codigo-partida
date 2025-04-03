@@ -49,43 +49,41 @@ const Text = styled.p`
   line-height: 1.4;
 `;
 
+const testimonials = [
+  {
+    name: 'Henrique Alves',
+    image: henrique,
+    rating: 5,
+    text: 'Antes do curso, eu não sabia nada de programação. Hoje consigo desenvolver páginas completas e até ajudo amigos com projetos! Foi um divisor de águas na minha vida.'
+  },
+  {
+    name: 'Daniela Costa',
+    image: daniela,
+    rating: 5,
+    text: 'Sempre achei que tecnologia não era pra mim, mas o curso me provou o contrário. As aulas são didáticas, e o suporte é incrível. Em poucas semanas, já consegui meu primeiro freelinha!'
+  },
+  {
+    name: 'Rafael Pereira',
+    image: rafael,
+    rating: 5,
+    text: 'O Código de Partida me deu clareza e direção. Não só aprendi programação, mas também como montar meu portfólio e buscar clientes. Hoje, trabalho remotamente para uma empresa de fora!'
+  }
+];
+
 export default function TestimonialsSection() {
   return (
     <Section>
       <Title>O que os alunos estão dizendo</Title>
-
-      <TestimonialWrapper>
-        <Avatar src={henrique} alt="Henrique Alves" />
-        <Content>
-          <Name>Henrique Alves</Name>
-          <Stars>★★★★★</Stars>
-          <Text>
-            O curso é excelente! As aulas são muito bem explicadas e fáceis de acompanhar. Estou muito satisfeito com meu progresso!
-          </Text>
-        </Content>
-      </TestimonialWrapper>
-
-      <TestimonialWrapper>
-        <Avatar src={daniela} alt="Daniela Costa" />
-        <Content>
-          <Name>Daniela Costa</Name>
-          <Stars>★★★★★</Stars>
-          <Text>
-            Esse curso foi um divisor de águas pra mim. Nunca imaginei que aprenderia tanto em tão pouco tempo!
-          </Text>
-        </Content>
-      </TestimonialWrapper>
-
-      <TestimonialWrapper>
-        <Avatar src={rafael} alt="Rafael Pereira" />
-        <Content>
-          <Name>Rafael Pereira</Name>
-          <Stars>★★★★★</Stars>
-          <Text>
-            Recomendo o Código de Partida a todos que querem entrar na área de tecnologia. Vale muito a pena!
-          </Text>
-        </Content>
-      </TestimonialWrapper>
+      {testimonials.map(({ name, image, rating, text }) => (
+        <TestimonialWrapper key={name}>
+          <Avatar src={image} alt={name} />
+          <Content>
+            <Name>{name}</Name>
+            <Stars>{'★'.repeat(rating)}</Stars>
+            <Text>{text}</Text>
+          </Content>
+        </TestimonialWrapper>
+      ))}
     </Section>
   );
 }

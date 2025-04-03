@@ -104,139 +104,140 @@ const CloseButton = styled.button`
 
 
 const ExitIntentPopup = ({ mentorRef }) => {
-    const [showPopup, setShowPopup] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(0);
-    const [canTriggerPopup, setCanTriggerPopup] = useState(false);
-  
-    const handleClosePopup = () => {
-        setShowPopup(false);
-      };
+  const [showPopup, setShowPopup] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [canTriggerPopup, setCanTriggerPopup] = useState(false);
 
-    // Verifica se mentorRef entrou na tela
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setCanTriggerPopup(true);
-          }
-        },
-        { threshold: 0.3 }
-      );
-  
-      if (mentorRef.current) {
-        observer.observe(mentorRef.current);
-      }
-  
-      return () => {
-        if (mentorRef.current) {
-          observer.unobserve(mentorRef.current);
-        }
-      };
-    }, []);
-  
-    // Gatilho mobile: dedo saiu da tela
-    useEffect(() => {
-        let startY = 0;
-      
-        const handleTouchStart = (e) => {
-          startY = e.touches[0].clientY;
-        };
-      
-        const handleTouchEnd = (e) => {
-          const endY = e.changedTouches[0].clientY;
-      
-          // Detecta gesto de "sair" (rolar para cima com o dedo)
-          const swipeUp = startY - endY > 50;
-      
-          if (
-            swipeUp &&
-            canTriggerPopup &&
-            !showPopup &&
-            localStorage.getItem('popupExpired') !== 'true'
-          ) {
-            const storedTime = localStorage.getItem('popupTimer');
-            const storedStart = localStorage.getItem('popupStart');
-      
-            if (storedTime && storedStart) {
-              const now = Date.now();
-              const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
-              const remaining = parseInt(storedTime) - elapsed;
-              setTimeLeft(remaining > 0 ? remaining : 15 * 60);
-            } else {
-              setTimeLeft(15 * 60);
-              localStorage.setItem('popupStart', Date.now().toString());
-              localStorage.setItem('popupTimer', (15 * 60).toString());
-            }
-      
-            setShowPopup(true);
-          }
-        };
-      
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
-      
-        return () => {
-          document.removeEventListener('touchstart', handleTouchStart);
-          document.removeEventListener('touchend', handleTouchEnd);
-        };
-      }, [canTriggerPopup, showPopup]);
-      
-  
-    // Timer regressivo
-    useEffect(() => {
-      if (!showPopup || timeLeft <= 0) return;
-      const interval = setInterval(() => {
-        setTimeLeft((prev) => {
-          const updated = prev - 1;
-          if (updated <= 0) {
-            localStorage.setItem('popupExpired', 'true'); 
-            localStorage.removeItem('popupStart');
-            localStorage.removeItem('popupTimer');
-          }
-          return updated;
-        });
-      }, 1000);
-      return () => clearInterval(interval);
-    }, [showPopup, timeLeft]);
-  
-    const formatTime = (seconds) => {
-      const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-      const sec = String(seconds % 60).padStart(2, '0');
-      return `${min}:${sec}`;
-    };
-  
-    const handleCouponClick = () => {
-      navigator.clipboard.writeText('ULTIMACHANCEDEV');
-      toast.success('🎉 Cupom copiado com sucesso!', {
-        position: 'top-center',
-        autoClose: 3000,
-      });
-    };
-  
-    const handleUseCoupon = () => {
-      window.open('https://pay.kiwify.com.br/GAQHdpq', '_blank');
-    };
-  
-    return (
-      <>
-        <ToastContainer />
-        {showPopup && timeLeft > 0 && (
-          <Overlay>
-            <Popup>
-            <CloseButton onClick={handleClosePopup}>&times;</CloseButton>
-              <Title>💥 Última chance antes de sair!</Title>
-              <Subtitle>
-                Use o cupom abaixo para garantir <strong>25% de desconto</strong> nos próximos <strong>{formatTime(timeLeft)}</strong>.
-              </Subtitle>
-              <Coupon onClick={handleCouponClick}>ULTIMACHANCEDEV</Coupon>
-              <Timer>Tempo restante: {formatTime(timeLeft)}</Timer>
-              <Button onClick={handleUseCoupon}>Usar meu cupom agora</Button>
-              <Small>Essa oferta expira assim que o tempo zerar.</Small>
-            </Popup>
-          </Overlay>
-        )}
-      </>
-    );
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    localStorage.setItem('popupExpired', 'true'); // <-- evita que apareça novamente
   };
-  
-  export default ExitIntentPopup;
+
+  // Verifica se mentorRef entrou na tela
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCanTriggerPopup(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (mentorRef.current) {
+      observer.observe(mentorRef.current);
+    }
+
+    return () => {
+      if (mentorRef.current) {
+        observer.unobserve(mentorRef.current);
+      }
+    };
+  }, []);
+
+  // Gatilho mobile: dedo saiu da tela
+  useEffect(() => {
+    let startY = 0;
+
+    const handleTouchStart = (e) => {
+      startY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      const endY = e.changedTouches[0].clientY;
+
+      // Detecta gesto de "sair" (rolar para cima com o dedo)
+      const swipeUp = startY - endY > 50;
+
+      if (
+        swipeUp &&
+        canTriggerPopup &&
+        !showPopup &&
+        localStorage.getItem('popupExpired') !== 'true'
+      ) {
+        const storedTime = localStorage.getItem('popupTimer');
+        const storedStart = localStorage.getItem('popupStart');
+
+        if (storedTime && storedStart) {
+          const now = Date.now();
+          const elapsed = Math.floor((now - parseInt(storedStart)) / 1000);
+          const remaining = parseInt(storedTime) - elapsed;
+          setTimeLeft(remaining > 0 ? remaining : 15 * 60);
+        } else {
+          setTimeLeft(15 * 60);
+          localStorage.setItem('popupStart', Date.now().toString());
+          localStorage.setItem('popupTimer', (15 * 60).toString());
+        }
+
+        setShowPopup(true);
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [canTriggerPopup, showPopup]);
+
+
+  // Timer regressivo
+  useEffect(() => {
+    if (!showPopup || timeLeft <= 0) return;
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        const updated = prev - 1;
+        if (updated <= 0) {
+          localStorage.setItem('popupExpired', 'true');
+          localStorage.removeItem('popupStart');
+          localStorage.removeItem('popupTimer');
+        }
+        return updated;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [showPopup, timeLeft]);
+
+  const formatTime = (seconds) => {
+    const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const sec = String(seconds % 60).padStart(2, '0');
+    return `${min}:${sec}`;
+  };
+
+  const handleCouponClick = () => {
+    navigator.clipboard.writeText('ULTIMACHANCEDEV');
+    toast.success('🎉 Cupom copiado com sucesso!', {
+      position: 'top-center',
+      autoClose: 3000,
+    });
+  };
+
+  const handleUseCoupon = () => {
+    window.open('https://pay.kiwify.com.br/GAQHdpq', '_blank');
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      {showPopup && timeLeft > 0 && (
+        <Overlay>
+          <Popup>
+            <CloseButton onClick={handleClosePopup}>&times;</CloseButton>
+            <Title>💥 Última chance antes de sair!</Title>
+            <Subtitle>
+              Use o cupom abaixo para garantir <strong>25% de desconto</strong> nos próximos <strong>{formatTime(timeLeft)}</strong>.
+            </Subtitle>
+            <Coupon onClick={handleCouponClick}>ULTIMACHANCEDEV</Coupon>
+            <Timer>Tempo restante: {formatTime(timeLeft)}</Timer>
+            <Button onClick={handleUseCoupon}>Usar meu cupom agora</Button>
+            <Small>Essa oferta expira assim que o tempo zerar.</Small>
+          </Popup>
+        </Overlay>
+      )}
+    </>
+  );
+};
+
+export default ExitIntentPopup;
