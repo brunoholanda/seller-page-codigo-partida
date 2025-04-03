@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bgImg from '../assets/hero.webp';
+import { Helmet } from 'react-helmet'
 
 // === STYLES ===
 
@@ -89,6 +90,7 @@ const Hero = styled.section`
     z-index: 1;
   }
 `;
+
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -222,14 +224,12 @@ function Countdown() {
 export default function HeroSection() {
   const whatsappLink = `https://pay.kiwify.com.br/GAQHdpq`;
 
-  // Pré-carregar a imagem de fundo
-  useEffect(() => {
-    const img = new Image();
-    img.src = bgImg;
-  }, []);
-
   return (
     <>
+      <Helmet>
+        <link rel="preload" href={bgImg} as="image" /> {/* Pré-carregamento otimizado */}
+      </Helmet>
+      
       <Countdown />
       <Hero>
         <ContentWrapper>
