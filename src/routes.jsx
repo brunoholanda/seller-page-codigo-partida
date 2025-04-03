@@ -1,10 +1,11 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
 import { GlobalStyle } from './globalStyles';
+import Loading from './components/Loading';
 
+const Home = lazy(() => import('./pages/Home'));
 const Afiliados = lazy(() => import('./pages/Afiliados'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -26,11 +27,13 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <HashRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/afiliados" element={<Afiliados />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={Loading}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/afiliados" element={<Afiliados />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </HashRouter>
     </ThemeProvider>
   );

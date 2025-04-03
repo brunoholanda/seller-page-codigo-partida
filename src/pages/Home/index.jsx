@@ -1,10 +1,10 @@
-import React, { Suspense, useRef } from 'react';
-import Loading from '../../components/Loading';
+import HeroSection from '../../components/HeroSection'; // Carregamento imediato
 import ExitIntentPopup from '../../components/ExitIntentPopup';
+import Loading from '../../components/Loading';
 
-// Lazy load para os componentes abaixo da dobra
+import React, { Suspense, useRef } from 'react';
+
 const Countdown = React.lazy(() => import('../../components/Countdown'));
-const HeroSection = React.lazy(() => import('../../components/HeroSection'));
 const BenefitsSection = React.lazy(() => import('../../components/BenefitsSection'));
 const ForWhoSection = React.lazy(() => import('../../components/ForWhoSection'));
 const WhatYouLearnSection = React.lazy(() => import('../../components/WhatYouLearnSection'));
@@ -12,8 +12,8 @@ const TestimonialsSection = React.lazy(() => import('../../components/Testimonia
 const BonusesSection = React.lazy(() => import('../../components/BonusesSection'));
 const GuaranteeSection = React.lazy(() => import('../../components/GuaranteeSection'));
 const PriceSection = React.lazy(() => import('../../components/PriceSection'));
-const FaqSection = React.lazy(() => import('../../components/FaqSection'));
 const MentorSection = React.lazy(() => import('../../components/BrunoSection'));
+const FaqSection = React.lazy(() => import('../../components/FaqSection'));
 const PageFooter = React.lazy(() => import('../../components/Footer'));
 
 export default function Home() {
@@ -21,21 +21,49 @@ export default function Home() {
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Countdown />
-        <HeroSection />
+      <Countdown /> {/* Já pode vir antes, é leve e importante */}
 
+      <HeroSection /> {/* Conteúdo acima da dobra, importante ser imediato */}
+
+      <Suspense fallback={<Loading />}>
         <BenefitsSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <ForWhoSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <WhatYouLearnSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <TestimonialsSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <BonusesSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <GuaranteeSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <PriceSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
         <MentorSection />
-        <div ref={mentorRef}>
+      </Suspense>
+
+      <div ref={mentorRef}>
+        <Suspense fallback={<Loading />}>
           <FaqSection />
-        </div>
+        </Suspense>
+      </div>
+
+      <Suspense fallback={<Loading />}>
         <PageFooter />
       </Suspense>
 
