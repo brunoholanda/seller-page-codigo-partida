@@ -1,9 +1,9 @@
 import HeroSection from '../../components/HeroSection'; // Carregamento imediato
+import ExitIntentPopup from '../../components/ExitIntentPopup';
 import Loading from '../../components/Loading';
 
 import React, { Suspense, useRef } from 'react';
 
-const ExitIntentPopup = React.lazy(() => import('../../components/ExitIntentPopup'));
 const Countdown = React.lazy(() => import('../../components/Countdown'));
 const BenefitsSection = React.lazy(() => import('../../components/BenefitsSection'));
 const ForWhoSection = React.lazy(() => import('../../components/ForWhoSection'));
@@ -67,11 +67,8 @@ export default function Home() {
       <Suspense fallback={<Loading />}>
         <PageFooter />
       </Suspense>
-      
-      <Suspense fallback={<Loading />}>
-        <ExitIntentPopup mentorRef={mentorRef} />
-      </Suspense>
 
+      <ExitIntentPopup mentorRef={mentorRef} />
     </>
   );
 }
