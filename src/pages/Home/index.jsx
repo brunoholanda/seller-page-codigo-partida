@@ -21,10 +21,10 @@ export default function Home() {
 
   return (
     <>
-      <Countdown /> {/* Já pode vir antes, é leve e importante */}
       <Suspense fallback={<Loading />}>
-        <HeroSection /> {/* Conteúdo acima da dobra, importante ser imediato */}
+        <Countdown /> {/* Já pode vir antes, é leve e importante */}
       </Suspense>
+      <HeroSection /> {/* Conteúdo acima da dobra, importante ser imediato */}
 
       <Suspense fallback={<Loading />}>
         <BenefitsSection />
