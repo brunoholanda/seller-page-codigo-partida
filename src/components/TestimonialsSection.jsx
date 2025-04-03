@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
       <Title>O que os alunos estão dizendo</Title>
       {testimonials.map(({ name, image, rating, text }) => (
         <TestimonialWrapper key={name}>
-          <Avatar src={image} alt={name} />
+          <Avatar src={image} alt={name} loading='lazy' />
           <Content>
             <Name>{name}</Name>
             <Stars>{'★'.repeat(rating)}</Stars>
