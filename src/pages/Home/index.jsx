@@ -1,9 +1,9 @@
 import HeroSection from '../../components/HeroSection'; // Carregamento imediato
-import ExitIntentPopup from '../../components/ExitIntentPopup';
 import Loading from '../../components/Loading';
 
-import React, { Suspense, useRef } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 
+const ExitIntentPopup = lazy(() => import('../../components/ExitIntentPopup'));
 const Countdown = React.lazy(() => import('../../components/Countdown'));
 const BenefitsSection = React.lazy(() => import('../../components/BenefitsSection'));
 const ForWhoSection = React.lazy(() => import('../../components/ForWhoSection'));
@@ -17,8 +17,17 @@ const FaqSection = React.lazy(() => import('../../components/FaqSection'));
 const PageFooter = React.lazy(() => import('../../components/Footer'));
 
 export default function Home() {
+  const [showExitPopup, setShowExitPopup] = useState(false);
   const mentorRef = useRef(null);
 
+  useEffect(() => {
+    const handleMouseLeave = (e) => {
+      if (e.clientY <= 0) setShowExitPopup(true);
+    };
+
+    document.addEventListener('mouseleave', handleMouseLeave);
+    return () => document.removeEventListener('mouseleave', handleMouseLeave);
+  }, []);
   return (
     <>
       <Suspense fallback={<Loading />}>
@@ -68,7 +77,8 @@ export default function Home() {
         <PageFooter />
       </Suspense>
 
-      <ExitIntentPopup mentorRef={mentorRef} />
-    </>
+      <Suspense fallback={<div />}>
+        <ExitIntentPopup mentorRef={mentorRef} />
+      </Suspense>    </>
   );
 }
