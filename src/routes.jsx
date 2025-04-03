@@ -27,7 +27,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <HashRouter>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<div>...carregando</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/afiliados" element={<Afiliados />} />
