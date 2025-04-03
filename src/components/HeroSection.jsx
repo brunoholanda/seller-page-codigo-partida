@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bgImg from '../assets/hero.webp';
+import bgImg from '../assets/bg-mobile.webp';
 import { Helmet } from 'react-helmet'
 
 // === STYLES ===
@@ -60,8 +60,7 @@ const TimeLabel = styled.div`
   text-transform: uppercase;
 `;
 const Hero = styled.section`
-  position: relative;
-  height: 70vh; 
+  position: relative; 
   width: 100%;
   padding: 60px 12px;
   color: white;
@@ -81,14 +80,19 @@ const BackgroundImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 397px;
+  width: 400px;
   object-fit: cover;
-  aspect-ratio: 16/9; // Ajuste conforme sua imagem
+  aspect-ratio: 16/9; 
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  background-color: #2d2d2d; // Cor de placeholder
+  background-color: #2d2d2d; 
+
+  @media (min-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -248,7 +252,8 @@ export default function HeroSection() {
           alt="Fundo da seção de herói"
           loading="eager"
           decoding="async"
-        />        <ContentWrapper>
+        />
+        <ContentWrapper>
           <Title>Código de Partida</Title>
           <Subtitle>Aprenda programação do zero e mude sua vida com a tecnologia</Subtitle>
 
