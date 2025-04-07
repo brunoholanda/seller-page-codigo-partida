@@ -14,6 +14,9 @@ const PriceSection = React.lazy(() => import('../../components/PriceSection'));
 const MentorSection = React.lazy(() => import('../../components/BrunoSection'));
 const FaqSection = React.lazy(() => import('../../components/FaqSection'));
 const PageFooter = React.lazy(() => import('../../components/Footer'));
+const WhatsappSection = React.lazy(() => import('../../components/WhatsappSection'));
+const CourseVideoSection = React.lazy(() => import('../../components/CourseVideoSection'));
+
 
 if ('requestIdleCallback' in window) {
   requestIdleCallback(() => import('../../components/HeroSection'))
@@ -34,7 +37,7 @@ export default function Home() {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Countdown /> 
+        <Countdown />
       </Suspense>
       <HeroSection />
 
@@ -44,6 +47,10 @@ export default function Home() {
 
       <Suspense fallback={<Loading />}>
         <ForWhoSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
+        <CourseVideoSection />
       </Suspense>
 
       <Suspense fallback={<Loading />}>
@@ -68,6 +75,10 @@ export default function Home() {
 
       <Suspense fallback={<Loading />}>
         <MentorSection />
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
+        <WhatsappSection />
       </Suspense>
 
       <div ref={mentorRef}>
