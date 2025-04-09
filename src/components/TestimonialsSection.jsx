@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import henrique from '../assets/henrique.webp';
 import daniela from '../assets/daniela.webp';
 import rafael from '../assets/rafael.webp';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 const Section = styled.section`
   padding: 40px 20px;
@@ -11,15 +14,17 @@ const Section = styled.section`
 `;
 
 const Title = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 30px;
+  text-align: center;
 `;
 
-const TestimonialWrapper = styled.div`
-  display: flex;
+const TestimonialCard = styled.div`
+  display: flex !important;
+  flex-direction: row;
   align-items: flex-start;
-  margin-bottom: 30px;
+  padding: 20px;
 `;
 
 const Avatar = styled.img`
@@ -35,7 +40,7 @@ const Content = styled.div`
 
 const Name = styled.p`
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0;
 `;
 
@@ -47,6 +52,7 @@ const Stars = styled.div`
 const Text = styled.p`
   margin: 0;
   line-height: 1.4;
+  font-size: 14px;
 `;
 
 const testimonials = [
@@ -71,19 +77,31 @@ const testimonials = [
 ];
 
 export default function TestimonialsSection() {
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    autoplay: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
     <Section>
       <Title>O que os alunos estão dizendo</Title>
-      {testimonials.map(({ name, image, rating, text }) => (
-        <TestimonialWrapper key={name}>
-          <Avatar src={image} alt={name} loading='lazy' />
-          <Content>
-            <Name>{name}</Name>
-            <Stars>{'★'.repeat(rating)}</Stars>
-            <Text>{text}</Text>
-          </Content>
-        </TestimonialWrapper>
-      ))}
+      <Slider {...settings}>
+        {testimonials.map(({ name, image, rating, text }) => (
+          <TestimonialCard key={name}>
+            <Avatar src={image} alt={name} loading="lazy" />
+            <Content>
+              <Name>{name}</Name>
+              <Stars>{'★'.repeat(rating)}</Stars>
+              <Text>{text}</Text>
+            </Content>
+          </TestimonialCard>
+        ))}
+      </Slider>
     </Section>
   );
 }

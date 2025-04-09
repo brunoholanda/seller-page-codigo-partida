@@ -24,7 +24,7 @@ const Installments = styled.p`
   margin-bottom: 20px;
 `;
 
-const CTAButton = styled.button`
+const CTAButton = styled.a`
   background: white;
   color: #ff7a00;
   padding: 14px 20px;
@@ -32,16 +32,19 @@ const CTAButton = styled.button`
   font-weight: bold;
   border: none;
   border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
 `;
 
+
 export default function PriceSection() {
-  const whatsappLink = `https://wa.me/5583998150712?text=${encodeURIComponent("quero aprender programação do zero")}`;
+  const whatsappLink = 'https://pay.kiwify.com.br/GAQHdpq';
 
   return (
     <Section>
       <Title>Comece agora o Código de Partida</Title>
-      <Price>De R$897 por R$697 à vista</Price>
-      <Installments>ou 12x de R$49,75</Installments>
+      <Price>De R$797 por R$597 à vista</Price>
+      <Installments>ou 12x de R$61,74</Installments>
       <CTAButton href={whatsappLink} target="_blank" rel="noopener noreferrer">
         Quero começar agora
       </CTAButton>
