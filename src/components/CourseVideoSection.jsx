@@ -10,7 +10,7 @@ const CourseVideoSection = () => {
       </Subtitle>
       <VideoWrapper>
         <iframe
-          src="https://player.vimeo.com/video/1086515204?h=189feda3e9&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+          src="https://player.vimeo.com/video/1086525074?h=9dbc7ebb97&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
           title="Como o curso funciona"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
