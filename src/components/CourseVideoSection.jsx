@@ -10,10 +10,10 @@ const CourseVideoSection = () => {
       </Subtitle>
       <VideoWrapper>
         <iframe
-          src="https://www.youtube.com/embed/SEU_VIDEO_ID"
+          src="https://player.vimeo.com/video/1086515204?h=189feda3e9&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
           title="Como o curso funciona"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
           allowFullScreen
         ></iframe>
       </VideoWrapper>
@@ -48,9 +48,9 @@ const Subtitle = styled.p`
 const VideoWrapper = styled.div`
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
+  height: 600px; // altura personalizada
   margin: 0 auto;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
 
   iframe {
     position: absolute;
@@ -60,3 +60,4 @@ const VideoWrapper = styled.div`
     height: 100%;
   }
 `;
+
