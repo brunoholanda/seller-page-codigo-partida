@@ -192,18 +192,18 @@ const ExitIntentPopup = ({ mentorRef }) => {
   // Controla o timer regressivo
   useEffect(() => {
     if (!showPopup || timeLeft <= 0) return;
-    
+
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         const updated = prev - 1;
-        
+
         if (updated <= 0) {
           localStorage.setItem('popupExpired', 'true');
           localStorage.removeItem('popupStart');
           localStorage.removeItem('popupTimer');
           setShowPopup(false);
         }
-        
+
         return updated;
       });
     }, 1000);
@@ -219,11 +219,17 @@ const ExitIntentPopup = ({ mentorRef }) => {
 
   const handleCouponClick = () => {
     navigator.clipboard.writeText('ULTIMACHANCEDEV');
-    toast.success('🎉 Cupom copiado com sucesso!', {
+
+    toast.success('🎉 Cupom copiado, você será redirecionado para o pagamento.', {
       position: 'top-center',
       autoClose: 3000,
     });
+
+    setTimeout(() => {
+      window.location.href = 'https://pay.kiwify.com.br/GAQHdpq';
+    }, 1000);
   };
+
 
   const handleUseCoupon = () => {
     window.open('https://pay.kiwify.com.br/GAQHdpq', '_blank');
@@ -239,6 +245,9 @@ const ExitIntentPopup = ({ mentorRef }) => {
             <Title>💥 Última chance antes de sair!</Title>
             <Subtitle>
               Use o cupom abaixo para garantir <strong>25% de desconto</strong> nos próximos <strong>{formatTime(timeLeft)}</strong>.
+            </Subtitle>
+            <Subtitle>
+              Clique Para copiar e cole antes de pagar!
             </Subtitle>
             <Coupon onClick={handleCouponClick}>ULTIMACHANCEDEV</Coupon>
             <Timer>Tempo restante: {formatTime(timeLeft)}</Timer>

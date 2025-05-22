@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+
 const CourseVideoSection = () => {
+  const checkoutLink = `https://pay.kiwify.com.br/GAQHdpq`;
+
   return (
     <SectionContainer>
       <Title>Veja como o curso funciona por dentro</Title>
@@ -17,6 +21,10 @@ const CourseVideoSection = () => {
           allowFullScreen
         ></iframe>
       </VideoWrapper>
+
+      <CTAButton href={checkoutLink} target="_blank" rel="noopener noreferrer">
+        Começar agora !
+      </CTAButton>
     </SectionContainer>
   );
 };
@@ -58,6 +66,25 @@ const VideoWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+  }
+`;
+
+
+const CTAButton = styled.a`
+  padding: 12px 85px;
+  background-color: #ff7a00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 26px;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+    padding: 16px 32px;
   }
 `;
 
